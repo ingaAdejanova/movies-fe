@@ -1,0 +1,17 @@
+.movie-section {
+  margin: 20px 0; // Margin around each movie section
+
+  h2 {
+      margin-bottom: 10px; // Margin below section title
+      font-size: 24px; // Section title font size
+      color: #e50914; // Netflix red color
+      text-align: left; // Align title to the left
+  }
+
+
+}
+.movies-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

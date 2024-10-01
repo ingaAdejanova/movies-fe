@@ -1,0 +1,39 @@
+.movie-item {
+    position: relative; // For absolutely positioning tags
+    background-color: #1c1c1c; // Dark card background
+    border-radius: 8px; // Rounded corners
+    overflow: hidden; // Hide overflow
+    width: 200px;
+    height: 300px;
+    margin: 30px 30px;
+    transition: transform 0.2s, box-shadow 0.2s; // Smooth transitions for hover effects
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.05); // Slightly enlarge on hover
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); // Shadow effect on hover
+    }
+
+    img {
+        width: 100%; // Responsive image
+        border-radius: 8px; // Match card corners
+        height: 100%;
+    }
+
+    h3 {
+        padding: 10px; // Padding around title
+        font-size: 16px; // Title font size
+        text-align: center; // Centered title
+    }
+
+    .tag {
+        position: absolute; // Position tag on top of the image
+        top: 10px;
+        left: 10px;
+        background-color: rgba(229, 9, 20, 0.7); // Semi-transparent red
+        color: white; // White text for the tag
+        padding: 5px 10px; // Padding for the tag
+        border-radius: 5px; // Rounded corners for the tag
+        font-size: 12px; // Smaller font size
+    }
+}
