@@ -1,6 +1,8 @@
 import axios, { AxiosResponse, Method } from 'axios'
 
 const BASE_URL = 'https://api.themoviedb.org/3/'
+
+// No authorization mechanism implemented, so the bearer token is hardcoded.
 const BEARER_TOKEN =
   'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNmJiZWE0NTEwNjFjYjVjZGMxN2YxMTBhYTQwMDczZiIsIm5iZiI6MTcyNzcwNTM2NS45NTQ5NSwic3ViIjoiNjZmYWIwMDc5YzY4NmE0NjAyMTMzN2JhIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.MBEU4x1DBC5RWCM-lgxeFTkMx_xXl5BMmFUiiMwJ3w4'
 

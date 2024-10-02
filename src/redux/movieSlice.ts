@@ -18,25 +18,35 @@ type MovieResponse = {
 }
 
 type MovieState = {
-  popularMovies: Movie[]
-  searchResults: Movie[]
+  movieLists: {
+    popularMovies: Movie[]
+    searchResults: Movie[]
+  }
   isLoading: boolean
-  error: string | null
-  currentPopularPage: number
-  currentSearchPage: number
-  totalPopularPages: number
-  totalSearchPages: number
+  errors: {
+    popularError: string | null
+    searchError: string | null
+  }
+  pagination: {
+    popularMovies: { currentPage: number; totalPages: number }
+    searchResults: { currentPage: number; totalPages: number }
+  }
 }
 
 const initialState: MovieState = {
-  popularMovies: [],
-  searchResults: [],
+  movieLists: {
+    popularMovies: [],
+    searchResults: [],
+  },
   isLoading: false,
-  error: null,
-  currentPopularPage: 1,
-  currentSearchPage: 1,
-  totalPopularPages: 1,
-  totalSearchPages: 1,
+  errors: {
+    popularError: null,
+    searchError: null,
+  },
+  pagination: {
+    popularMovies: { currentPage: 1, totalPages: 1 },
+    searchResults: { currentPage: 1, totalPages: 1 },
+  },
 }
 
 export const fetchPopularMovies = createAsyncThunk<MovieResponse, number>(
@@ -66,41 +76,44 @@ export const moviesSlice = createSlice({
   initialState,
   reducers: {
     resetSearch(state) {
-      state.searchResults = []
-      state.currentSearchPage = 1
+      state.movieLists.searchResults = []
+      state.pagination.searchResults = { currentPage: 1, totalPages: 1 }
+      state.errors.searchError = null
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPopularMovies.pending, (state) => {
         state.isLoading = true
+        state.errors.popularError = null
       })
       .addCase(fetchPopularMovies.fulfilled, (state, action) => {
         state.isLoading = false
-        state.popularMovies = [...state.popularMovies, ...action.payload.results]
-        state.totalPopularPages = action.payload.total_pages
-        state.currentPopularPage += 1
+        state.movieLists.popularMovies = [...state.movieLists.popularMovies, ...action.payload.results]
+        state.pagination.popularMovies.totalPages = action.payload.total_pages
+        state.pagination.popularMovies.currentPage += 1
       })
       .addCase(fetchPopularMovies.rejected, (state, action) => {
         state.isLoading = false
-        state.error = action.error.message || null
+        state.errors.popularError = action.error.message || null
       })
+
       .addCase(searchMovies.pending, (state) => {
         state.isLoading = true
+        state.errors.searchError = null
       })
       .addCase(searchMovies.fulfilled, (state, action) => {
         state.isLoading = false
-        state.searchResults = [...state.searchResults, ...action.payload.results]
-        state.totalSearchPages = action.payload.total_pages
-        state.currentSearchPage += 1
+        state.movieLists.searchResults = [...state.movieLists.searchResults, ...action.payload.results]
+        state.pagination.searchResults.totalPages = action.payload.total_pages
+        state.pagination.searchResults.currentPage += 1
       })
       .addCase(searchMovies.rejected, (state, action) => {
         state.isLoading = false
-        state.error = action.error.message || null
+        state.errors.searchError = action.error.message || null
       })
   },
 })
 
 export const { resetSearch } = moviesSlice.actions
-
 export default moviesSlice.reducer

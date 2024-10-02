@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../redux/store/hooks'
 import { fetchPopularMovies, searchMovies, resetSearch } from '../../../redux/movieSlice'
 import { RootState } from '../../../redux/store'
+import { usePagination } from '../../../hooks/usePagination'
 import MovieItem from '../MovieItem/MovieItem'
 import { Loader } from '../../../components/core/Loader'
 import InfiniteScroll from 'react-infinite-scroll-component'
@@ -15,13 +16,10 @@ type MovieListProps = {
 const MovieList = ({ searchTerm }: MovieListProps) => {
   const dispatch = useAppDispatch()
   const {
-    popularMovies,
-    searchResults,
+    movieLists: { popularMovies, searchResults },
     isLoading,
-    currentPopularPage,
-    currentSearchPage,
-    totalPopularPages,
-    totalSearchPages,
+    pagination,
+    errors,
   } = useAppSelector((state: RootState) => state.movies)
 
   const debouncedSearchTerm = useDebounce(searchTerm, 300)
@@ -35,31 +33,55 @@ const MovieList = ({ searchTerm }: MovieListProps) => {
     }
   }, [dispatch, debouncedSearchTerm, popularMovies.length])
 
-  const fetchData = () => {
+  const { loadMore: loadMorePopularMovies } = usePagination({
+    currentPage: pagination.popularMovies.currentPage,
+    totalPages: pagination.popularMovies.totalPages,
+    fetchNextPage: () => dispatch(fetchPopularMovies(pagination.popularMovies.currentPage)),
+  })
+
+  const { loadMore: loadMoreSearchResults } = usePagination({
+    currentPage: pagination.searchResults.currentPage,
+    totalPages: pagination.searchResults.totalPages,
+    fetchNextPage: () =>
+      dispatch(searchMovies({ query: debouncedSearchTerm, page: pagination.searchResults.currentPage })),
+  })
+
+  const loadMoreMovies = () => {
     if (debouncedSearchTerm) {
-      if (currentSearchPage < totalSearchPages) {
-        dispatch(searchMovies({ query: debouncedSearchTerm, page: currentSearchPage + 1 }))
-      }
+      loadMoreSearchResults()
     } else {
-      if (currentPopularPage < totalPopularPages) {
-        dispatch(fetchPopularMovies(currentPopularPage + 1))
-      }
+      loadMorePopularMovies()
     }
   }
 
+  const loader = <div className="loader-container">{isLoading && <Loader />}</div>
+
   return (
-    <InfiniteScroll
-      dataLength={debouncedSearchTerm ? searchResults.length : popularMovies.length}
-      next={fetchData}
-      hasMore={debouncedSearchTerm ? searchResults.length < totalSearchPages : popularMovies.length < totalPopularPages}
-      loader={<div className="loader-container">{isLoading && <Loader />}</div>}
-    >
-      <div className="movie-list">
-        {(debouncedSearchTerm ? searchResults : popularMovies).map((movie, i) => (
-          <MovieItem key={`${movie.id}-${i}`} movie={movie} />
-        ))}
-      </div>
-    </InfiniteScroll>
+    <div>
+      {!debouncedSearchTerm && popularMovies.length === 0 && !isLoading && <div>No popular movies found</div>}
+      {debouncedSearchTerm && searchResults.length === 0 && !isLoading && <div>No results found for your search</div>}
+
+      {errors.popularError && !debouncedSearchTerm && <div>{errors.popularError}</div>}
+      {errors.searchError && debouncedSearchTerm && <div>{errors.searchError}</div>}
+
+      {loader}
+      <InfiniteScroll
+        dataLength={debouncedSearchTerm ? searchResults.length : popularMovies.length}
+        next={loadMoreMovies}
+        hasMore={
+          debouncedSearchTerm
+            ? pagination.searchResults.currentPage < pagination.searchResults.totalPages
+            : pagination.popularMovies.currentPage < pagination.popularMovies.totalPages
+        }
+        loader={loader}
+      >
+        <div className="movie-list">
+          {(debouncedSearchTerm ? searchResults : popularMovies).map((movie, i) => (
+            <MovieItem key={`${movie.id}-${i}`} movie={movie} />
+          ))}
+        </div>
+      </InfiniteScroll>
+    </div>
   )
 }
 
