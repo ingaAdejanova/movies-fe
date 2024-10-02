@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Movie } from '../../../redux/movieSlice'
+import { Movie } from '../../../redux/types'
 import { Image } from '../../../components/core/Image/Image'
 import { TMDB_IMAGE_BASE_URL } from '../../../constants'
 import { ROUTES } from '../../../routes'

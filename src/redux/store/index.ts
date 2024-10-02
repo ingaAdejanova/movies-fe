@@ -1,8 +1,9 @@
 import type { Action, ThunkAction } from '@reduxjs/toolkit'
 import { configureStore, combineSlices } from '@reduxjs/toolkit'
-import { moviesSlice } from '../movieSlice'
+import { popularMovieSlice } from '../popularMovieSlice'
+import { searchMovieSlice } from '../searchMovieSlice'
 
-const rootReducer = combineSlices(moviesSlice)
+const rootReducer = combineSlices(popularMovieSlice, searchMovieSlice)
 
 export const store = configureStore({
   reducer: rootReducer,
