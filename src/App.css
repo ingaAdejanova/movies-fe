@@ -5,30 +5,3 @@ body {
   margin: 0;
   padding: 0;
 }
-
-.header {
-  padding: 20px;
-  background-color: #141414;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  h1 {
-      margin: 0;
-      font-size: 24px;
-      color: #e50914;
-  }
-
-  input {
-      padding: 10px;
-      border-radius: 5px;
-      border: none;
-      background-color: #333;
-      color: white;
-      width: 300px;
-
-      &::placeholder {
-          color: #b3b3b3;
-      }
-  }
-}

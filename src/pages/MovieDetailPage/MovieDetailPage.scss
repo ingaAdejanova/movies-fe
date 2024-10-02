@@ -1,0 +1,46 @@
+@import '../../styles/_variables';
+
+.movie-detail {
+  background-color: $dark-grey;
+  color: $white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.movie-detail__content {
+  display: flex;
+  align-items: flex-start;
+}
+
+.movie-detail__poster {
+  width: 200px;
+  height: 300px;
+  border-radius: 4px;
+}
+
+.movie-detail__info {
+  margin-left: 20px;
+  max-width: 600px;
+}
+
+.movie-detail__title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.movie-detail__meta {
+  margin: 10px 0;
+  display: flex;
+  gap: 15px;
+}
+
+.movie-detail__meta-year,
+.movie-detail__meta-age-rating {
+  font-size: 14px;
+  color: $light-grey;
+}
+
+.movie-detail__description {
+  margin: 15px 0;
+  line-height: 1.5;
+}

@@ -7,12 +7,19 @@ type FetchState<T> = {
   error: string | null
 }
 
-export const useFetch = <T>(url: string): FetchState<T> => {
+type UseFetchParams = {
+  url: string
+  shouldFetch?: boolean
+}
+
+export const useFetch = <T>({ url, shouldFetch = true }: UseFetchParams): FetchState<T> => {
   const [data, setData] = useState<T | null>(null)
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
   const fetchDataAndSetState = useCallback(async () => {
+    if (!shouldFetch) return;
+
     setLoading(true)
     setError(null)
 
@@ -24,7 +31,7 @@ export const useFetch = <T>(url: string): FetchState<T> => {
     } finally {
       setLoading(false)
     }
-  }, [url])
+  }, [url, shouldFetch])
 
   useEffect(() => {
     fetchDataAndSetState()
