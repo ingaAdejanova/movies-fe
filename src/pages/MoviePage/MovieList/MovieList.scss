@@ -1,6 +1,10 @@
 .movie-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+}

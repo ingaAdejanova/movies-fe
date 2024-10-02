@@ -1,3 +1,3 @@
-import './Loader.scss';
+import './Loader.scss'
 
-export const Loader = () => <div className="loader" />;
+export const Loader = () => <div className="loader" />

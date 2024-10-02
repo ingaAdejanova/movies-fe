@@ -1,12 +1,12 @@
 import type { Action, ThunkAction } from '@reduxjs/toolkit'
-import { configureStore, combineSlices } from '@reduxjs/toolkit';
-import { moviesSlice } from '../movieSlice';
+import { configureStore, combineSlices } from '@reduxjs/toolkit'
+import { moviesSlice } from '../movieSlice'
 
 const rootReducer = combineSlices(moviesSlice)
 
 export const store = configureStore({
-  reducer: rootReducer
-});
+  reducer: rootReducer,
+})
 
 export type RootState = ReturnType<typeof rootReducer>
 export type AppStore = ReturnType<typeof store.getState>

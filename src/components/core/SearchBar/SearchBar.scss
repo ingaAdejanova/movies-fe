@@ -1,45 +1,38 @@
+@import '../../../styles/_colors';
+
 .search-bar {
-    display: flex;
-    align-items: center;
-    background-color: black;
-    border-radius: 50px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 10px 20px;
-    width: 100%; // Full width
-    max-width: 600px; // Max width for the search bar
-    margin: 40px auto; // Center the search bar
+  display: flex;
+  align-items: center;
+  background-color: $black;
+  border-radius: 50px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  width: 100%;
+  max-width: 600px;
+  margin: 40px auto;
 }
 
-.search-input {
-    border: none;
-    outline: none;
-    flex: 1; // Allow input to take available space
-    font-size: 16px;
-    padding: 10px;
-    border-radius: 50px;
-    background-color: transparent;
-    color: white; // Text color
+.search-bar__input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 50px;
+  background-color: transparent;
+  color: $white;
 }
 
-.search-button {
-    background-color: black; // Red color from the design
-    border: none;
-    border-radius: 50%;
-    padding: 10px;
-    margin-left: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 40px;
-    width: 40px;
-    transition: background-color 0.3s ease;
+.search-bar__wrapper {
+  padding: 10px;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
 
-    &:hover {
-        background-color: #FF2C22; // Darker red on hover
-    }
-
-    span {
-        color: white; // Icon color
-    }
+  &__icon {
+    color: $white;
+  }
 }

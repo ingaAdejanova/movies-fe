@@ -1,4 +1,5 @@
-@import '../../styles/_variables';
+@import '../../styles/_colors';
+@import '../../styles/_breakpoints';
 
 .movie-detail {
   background-color: $dark-grey;
@@ -10,16 +11,20 @@
 .movie-detail__content {
   display: flex;
   align-items: flex-start;
+  flex-direction: column;
+  gap: 20px;
+
+  @media (min-width: $desktop-breakpoint) {
+    flex-direction: row;
+  }
 }
 
 .movie-detail__poster {
-  width: 200px;
-  height: 300px;
-  border-radius: 4px;
+  min-width: 200px;
+  min-height: 300px;
 }
 
 .movie-detail__info {
-  margin-left: 20px;
   max-width: 600px;
 }
 
@@ -43,4 +48,10 @@
 .movie-detail__description {
   margin: 15px 0;
   line-height: 1.5;
+}
+
+.loader-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }

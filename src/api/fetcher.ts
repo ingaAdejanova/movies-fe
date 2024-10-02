@@ -29,9 +29,11 @@ export const fetchData = async <T>({
       params,
       data,
     })
-
     return response.data
   } catch (error: any) {
-    throw new Error(error.response?.data?.message || error.message)
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data?.message || error.message)
+    }
+    throw new Error('An unexpected error occurred')
   }
 }

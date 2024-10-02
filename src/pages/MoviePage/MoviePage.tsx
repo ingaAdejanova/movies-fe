@@ -1,17 +1,16 @@
-import { useQueryParam } from '../../hooks/useQueryParam';
-import { SearchBar } from '../../components/core/SearchBar/SearchBar';
-import MovieList from './MovieList/MovieList';
-import './MoviePage.scss';
+import { useQueryParam } from '../../hooks/useQueryParam'
+import { SearchBar } from '../../components/core/SearchBar/SearchBar'
+import MovieList from './MovieList/MovieList'
 
 const MoviePage = () => {
-  const [searchTerm, setSearchTerm] = useQueryParam('query', '');
+  const [searchTerm, setSearchTerm] = useQueryParam('query', '')
 
   return (
     <>
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <MovieList searchTerm={searchTerm} />
     </>
-  );
-};
+  )
+}
 
-export default MoviePage;
+export default MoviePage

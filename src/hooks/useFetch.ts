@@ -18,7 +18,7 @@ export const useFetch = <T>({ url, shouldFetch = true }: UseFetchParams): FetchS
   const [error, setError] = useState<string | null>(null)
 
   const fetchDataAndSetState = useCallback(async () => {
-    if (!shouldFetch) return;
+    if (!shouldFetch) return
 
     setLoading(true)
     setError(null)
