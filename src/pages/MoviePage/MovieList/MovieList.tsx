@@ -11,11 +11,7 @@ const MovieList = ({ searchTerm }: MovieListProps) => {
 
   return (
     <div>
-      {!debouncedSearchTerm ? (
-        <PopularMovieList />
-      ) : (
-        <SearchedMovieList debouncedSearchTerm={debouncedSearchTerm} />
-      )}
+      {!debouncedSearchTerm ? <PopularMovieList /> : <SearchedMovieList debouncedSearchTerm={debouncedSearchTerm} />}
     </div>
   )
 }

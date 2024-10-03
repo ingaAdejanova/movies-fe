@@ -10,6 +10,7 @@ To get started, clone the repository and install the necessary dependencies.
 ```bash
 git clone <repository_url>
 cd movies-fe
+npm install --global yarn
 yarn install
 ```
 
