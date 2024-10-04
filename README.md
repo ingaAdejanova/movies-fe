@@ -30,3 +30,6 @@ To run the tests using Jest:
 ```bash
 yarn test
 ```
+
+## Alternative Data Fetching Consideration
+In this project, Redux has been utilized for state management and data fetching. However, another powerful alternative for handling data fetching in React applications could be SWR (Stale-While-Revalidate). SWR simplifies the process of fetching, caching, and revalidating data
